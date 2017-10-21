@@ -9,6 +9,13 @@ class WagtailTranslationAppConfig(AppConfig):
     verbose_name = 'Wagtail translation'
 
     def ready(self):
+        from django.conf import settings
+        # Add Wagtail defined fields as modeltranslation custom fields
+        setattr(settings,
+                'MODELTRANSLATION_CUSTOM_FIELDS',
+                getattr(settings, 'MODELTRANSLATION_CUSTOM_FIELDS', ()) + (
+                    'StreamField', 'RichTextField'))
+
         # patch Site and Page models here
         from wagtail.wagtailcore.models import AbstractPage, Page, Site
         from wagtail.wagtailcore.query import PageQuerySet
