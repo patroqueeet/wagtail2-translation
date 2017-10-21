@@ -164,7 +164,7 @@ def _update_descendant_lang_url_paths(self, old_page):
     exec_args.append(self.id)
     cursor.execute(update_sql, exec_args)
 
-def get_url_parts(self):
+def get_url_parts(self, request=None):
     # if '//' exists in url_path, it means that some
     # page in the path is not translated, therefore
     # this page is not routable in current language
@@ -172,7 +172,7 @@ def get_url_parts(self):
         return
 
     # copy of original implementation:
-    for (site_id, root_path, root_url) in Site.get_site_root_paths():
+    for (site_id, root_path, root_url) in self._get_site_root_paths(request):
         if self.url_path.startswith(root_path):
             page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
