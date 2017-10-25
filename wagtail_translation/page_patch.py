@@ -38,7 +38,8 @@ def set_url_path(self, parent):
             # On the other hand, non empty url_path for every language is important.
             # It makes sure descendant url_path updating keeps working as expected.
             slug = getattr(self, slug_attr, '') or ''
-            new_url_path = getattr(parent, url_path_attr, '') or '' + slug + '/'
+            base_path = getattr(parent, url_path_attr, '') or ''
+            new_url_path = base_path + slug + '/'
         else:
             new_url_path = '/'
         setattr(self, url_path_attr, new_url_path)
