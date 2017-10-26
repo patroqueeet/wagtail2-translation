@@ -38,3 +38,5 @@ class WagtailTranslationAppConfig(AppConfig):
             setattr(Site, name, getattr(site_patch, name))
         for name in query_patch.__all__:
             setattr(PageQuerySet, name, getattr(query_patch, name))
+
+        import wagtail_translation.signal_handlers

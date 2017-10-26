@@ -131,25 +131,23 @@ def save(self, *args, **kwargs):
     # current language fields may have been set to our uuid,
     # let's get rid of that
     lang_code = get_language()[0:2]
+    xp = re.compile(r"{}[0-9a-f]+".format(PREFIX))
+
     title_field = build_localized_fieldname('title', lang_code)
     slug_field = build_localized_fieldname('slug', lang_code)
     url_path_field = build_localized_fieldname('url_path', lang_code)
-    if getattr(self, slug_field).startswith(PREFIX):
-        setattr(self, slug_field, "")
-    if getattr(self, title_field).startswith(PREFIX):
-        setattr(self, title_field, "")
+    field_list = [title_field, slug_field, url_path_field, ]
+
+    for field in field_list:
+        setattr(self, field, xp.sub(getattr(self, slug_field), ""))
+
+    if xp.match(self.draft_title):
         # try to override uuid-draft_title with a nice one
-        if self.draft_title.startswith(PREFIX):
-            for lang_code in mt_settings.AVAILABLE_LANGUAGES:
-                title_field = build_localized_fieldname('title', lang_code)
-                if getattr(self, title_field):
-                    self.draft_title = getattr(self, title_field)
-                    break
-    if PREFIX in getattr(self, url_path_field):
-        # clean up url_path, so it doesn't happen to look valid
-        setattr(self, url_path_field,
-                re.sub(r"{}[0-9a-f]+".format(PREFIX), "",
-                       getattr(self, url_path_field)))
+        for lang_code in mt_settings.AVAILABLE_LANGUAGES:
+            title_field = build_localized_fieldname('title', lang_code)
+            if getattr(self, title_field):
+                self.draft_title = getattr(self, title_field)
+                break
 
     result = super(Page, self).save(*args, **kwargs)
 
