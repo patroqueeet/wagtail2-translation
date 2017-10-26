@@ -11,6 +11,4 @@ class PageTranslationOptions(TranslationOptions):
         'seo_title',
         'search_description',
         'url_path',)
-    required_languages = {
-        mt_settings.DEFAULT_LANGUAGE: ('title', 'slug')}
-
+    required_languages = getattr(mt_settings, 'REQUIRED_PAGE_LANGUAGES', None)
