@@ -139,7 +139,7 @@ def save(self, *args, **kwargs):
     field_list = [title_field, slug_field, url_path_field, ]
 
     for field in field_list:
-        setattr(self, field, xp.sub(getattr(self, slug_field), ""))
+        setattr(self, field, xp.sub("", getattr(self, field)))
 
     if xp.match(self.draft_title):
         # try to override uuid-draft_title with a nice one
