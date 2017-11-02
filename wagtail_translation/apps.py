@@ -19,6 +19,7 @@ class WagtailTranslationAppConfig(AppConfig):
         # patch Site and Page models here
         from wagtail.wagtailcore.models import AbstractPage, Page, Site
         from wagtail.wagtailcore.query import PageQuerySet
+        from wagtail.wagtailadmin.views import pages
         from .manager import MultilingualPageManager
 
         # fix PageManager to inherit from MultilingualManager
@@ -31,6 +32,7 @@ class WagtailTranslationAppConfig(AppConfig):
         page_patch = import_module('wagtail_translation.page_patch')
         site_patch = import_module('wagtail_translation.site_patch')
         query_patch = import_module('wagtail_translation.query_patch')
+        views_patch = import_module('wagtail_translation.views_patch')
 
         for name in page_patch.__all__:
             setattr(Page, name, getattr(page_patch, name))
@@ -38,5 +40,7 @@ class WagtailTranslationAppConfig(AppConfig):
             setattr(Site, name, getattr(site_patch, name))
         for name in query_patch.__all__:
             setattr(PageQuerySet, name, getattr(query_patch, name))
+        for name in views_patch.__all__:
+            setattr(pages, name, getattr(views_patch, name))
 
         import wagtail_translation.signal_handlers
