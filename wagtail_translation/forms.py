@@ -21,12 +21,13 @@ class CopyForm(forms.Form):
             title_field = build_localized_fieldname("title", lang)
             new_slug_field = build_localized_fieldname("new_slug", lang)
             slug_field = build_localized_fieldname("slug", lang)
-            self.fields[new_title_field] = forms.CharField(
-                initial=getattr(self.page, title_field),
-                label=_("New title [{}]".format(lang)))
-            self.fields[new_slug_field] = forms.SlugField(
-                initial=getattr(self.page, slug_field),
-                label=_("New slug [{}]".format(lang)))
+            if getattr(self.page, title_field):
+                self.fields[new_title_field] = forms.CharField(
+                    initial=getattr(self.page, title_field),
+                    label=_("New title [{}]".format(lang)))
+                self.fields[new_slug_field] = forms.SlugField(
+                    initial=getattr(self.page, slug_field),
+                    label=_("New slug [{}]".format(lang)))
 
         self.fields['new_parent_page'] = forms.ModelChoiceField(
             initial=self.page.get_parent(),

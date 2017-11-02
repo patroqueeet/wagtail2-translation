@@ -60,13 +60,14 @@ def copy(request, page_id):
             translated_attrs = {}
             for lang in mt_settings.AVAILABLE_LANGUAGES:
                 new_title_field = build_localized_fieldname("new_title", lang)
-                title_field = build_localized_fieldname("title", lang)
-                new_slug_field = build_localized_fieldname("new_slug", lang)
-                slug_field = build_localized_fieldname("slug", lang)
-                translated_attrs.update({
-                    '{}'.format(title_field): form.cleaned_data[new_title_field],
-                    '{}'.format(slug_field): form.cleaned_data[new_slug_field],
-                })
+                if form.cleaned_data.get(new_title_field):
+                    title_field = build_localized_fieldname("title", lang)
+                    new_slug_field = build_localized_fieldname("new_slug", lang)
+                    slug_field = build_localized_fieldname("slug", lang)
+                    translated_attrs.update({
+                        '{}'.format(title_field): form.cleaned_data[new_title_field],
+                        '{}'.format(slug_field): form.cleaned_data[new_slug_field],
+                    })
 
             # Copy the page
             new_page = page.copy(
