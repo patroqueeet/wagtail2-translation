@@ -23,7 +23,7 @@ setup(
         ],
     package_data={'wagtail_translation': [
         'static/wagtail_translation/js/*.js',
-        'templates/']},
+        'templates/wagtailadmin/pages/*.html']},
     install_requires=install_requires,
     download_url='https://github.com/skirsdeda/wagtail-translation',
     classifiers=[
