@@ -130,7 +130,7 @@ def save(self, *args, **kwargs):
 
     # current language fields may have been set to our uuid,
     # let's get rid of that
-    lang_code = get_language()[0:2]
+    lang_code = get_language() or mt_settings.DEFAULT_LANGUAGE
     xp = re.compile(r"{}[0-9a-f]+".format(PREFIX))
 
     title_field = build_localized_fieldname('title', lang_code)
