@@ -21,7 +21,9 @@ setup(
     packages=[
         'wagtail_translation',
         ],
-    package_data={'wagtail_translation': ['static/wagtail_translation/js/*.js']},
+    package_data={'wagtail_translation': [
+        'static/wagtail_translation/js/*.js',
+        'templates/']},
     install_requires=install_requires,
     download_url='https://github.com/skirsdeda/wagtail-translation',
     classifiers=[
