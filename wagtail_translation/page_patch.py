@@ -83,7 +83,7 @@ def full_clean(self, *args, **kwargs):
 
     # force setting fallback fields to uuid if current language is not set
     # these will not be saved, but will allow us to save the form
-    lang_code = get_language()
+    lang_code = get_language() or mt_settings.DEFAULT_LANGUAGE
     title_field = build_localized_fieldname('title', lang_code)
     slug_field = build_localized_fieldname('slug', lang_code)
     if not getattr(self, title_field) or not getattr(self, slug_field):
