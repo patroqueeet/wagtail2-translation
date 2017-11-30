@@ -34,13 +34,41 @@ promote_panels = [
 
 # replacement base form for pages
 class WagtailAdminTranslatablePageForm(WagtailAdminPageForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        required_fields = [f.name
+                           for f in self.instance._meta.local_fields
+                           if hasattr(f, "blank") and f.blank is False]
+        required_fields += ['title', 'slug', ]
+
+        for lang_code in mt_settings.AVAILABLE_LANGUAGES:
+            for field in required_fields:
+                localized = build_localized_fieldname(field, lang_code)
+                if localized in self.fields:
+                    self.fields[localized].label = "{}*".format(
+                        self.fields[localized].label)
+
     def clean(self):
         cleaned_data = super(WagtailAdminTranslatablePageForm, self).clean()
+
+        required_fields = [f.name
+                           for f in self.instance._meta.local_fields
+                           if hasattr(f, "blank") and f.blank is False]
 
         for lang_code in mt_settings.AVAILABLE_LANGUAGES:
             slug_field = build_localized_fieldname('slug', lang_code)
 
             if slug_field in cleaned_data and cleaned_data[slug_field]:
+                for field in required_fields:
+                    localized = build_localized_fieldname(field, lang_code)
+                    if (localized in self.fields and
+                            hasattr(self.instance, localized) and not
+                            cleaned_data[localized]):
+                        self.add_error(
+                            localized,
+                            forms.ValidationError(_("This field is required")))
+
                 if not page_slug_is_available(
                     cleaned_data[slug_field], lang_code, self.parent_page, self.instance
                 ):
