@@ -37,10 +37,13 @@ class WagtailAdminTranslatablePageForm(WagtailAdminPageForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        required_fields = [f.name
-                           for f in self.instance._meta.local_fields
-                           if hasattr(f, "blank") and f.blank is False]
-        required_fields += ['title', 'slug', ]
+        required_fields = getattr(
+            self.instance, "required_translation_fields", [])
+        if not required_fields:
+            required_fields = [f.name
+                               for f in self.instance._meta.local_fields
+                               if hasattr(f, "blank") and f.blank is False]
+        required_fields = set(required_fields + ['title', 'slug', ])
 
         for lang_code in mt_settings.AVAILABLE_LANGUAGES:
             for field in required_fields:
@@ -52,9 +55,12 @@ class WagtailAdminTranslatablePageForm(WagtailAdminPageForm):
     def clean(self):
         cleaned_data = super(WagtailAdminTranslatablePageForm, self).clean()
 
-        required_fields = [f.name
-                           for f in self.instance._meta.local_fields
-                           if hasattr(f, "blank") and f.blank is False]
+        required_fields = getattr(
+            self.instance, "required_translation_fields", [])
+        if not required_fields:
+            required_fields = [f.name
+                               for f in self.instance._meta.local_fields
+                               if hasattr(f, "blank") and f.blank is False]
 
         for lang_code in mt_settings.AVAILABLE_LANGUAGES:
             slug_field = build_localized_fieldname('slug', lang_code)
