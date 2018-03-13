@@ -3,8 +3,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from modeltranslation import settings as mt_settings
 from modeltranslation.utils import build_localized_fieldname
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.admin.forms import WagtailAdminPageForm
 
 from .utils import deprecated, get_lang_obj, obj_per_lang, page_slug_is_available
 

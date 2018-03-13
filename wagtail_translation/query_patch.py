@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.utils.translation import get_language
 from modeltranslation import settings as mt_settings
 from modeltranslation.utils import build_localized_fieldname
-from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
+from wagtail.search.queryset import SearchableQuerySetMixin
 
 __all__ = ['search']
 

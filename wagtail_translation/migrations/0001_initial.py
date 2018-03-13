@@ -9,7 +9,7 @@ from django.db import migrations, models
 def url_path_fix(apps, schema_editor):
     # cannot use apps.get_model here
     # because Page instances wouldn't have set_url_path method
-    from wagtail.wagtailcore.models import Page
+    from wagtail.core.models import Page
 
     url_path_fields = get_translation_fields('url_path')
     for page in Page.objects.order_by('path').iterator():

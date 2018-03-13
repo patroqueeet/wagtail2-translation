@@ -4,7 +4,7 @@ from django.core.cache import cache
 from django.db.models.signals import post_delete, post_save
 from django.utils.translation import get_language
 from modeltranslation import settings as mt_settings
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 __all__ = ['get_site_root_paths']
 

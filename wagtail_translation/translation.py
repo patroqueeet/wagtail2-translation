@@ -1,6 +1,6 @@
 from django.conf import settings
 from modeltranslation.translator import TranslationOptions, register
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 
 @register(Page)

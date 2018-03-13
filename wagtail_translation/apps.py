@@ -17,9 +17,9 @@ class WagtailTranslationAppConfig(AppConfig):
                     'StreamField', 'RichTextField'))
 
         # patch Site and Page models here
-        from wagtail.wagtailcore.models import AbstractPage, Page, Site
-        from wagtail.wagtailcore.query import PageQuerySet
-        from wagtail.wagtailadmin.views import pages
+        from wagtail.core.models import AbstractPage, Page, Site
+        from wagtail.core.query import PageQuerySet
+        from wagtail.admin.views import pages
         from .manager import MultilingualPageManager
 
         # fix PageManager to inherit from MultilingualManager

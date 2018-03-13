@@ -5,8 +5,8 @@ from django.utils.translation import ungettext, ugettext as _
 from modeltranslation import settings as mt_settings
 from modeltranslation.utils import build_localized_fieldname
 
-from wagtail.wagtailadmin import widgets
-from wagtail.wagtailcore.models import Page
+from wagtail.admin import widgets
+from wagtail.core.models import Page
 
 
 class CopyForm(forms.Form):

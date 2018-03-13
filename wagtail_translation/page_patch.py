@@ -13,8 +13,8 @@ from django.utils.translation import get_language, ugettext_lazy as _
 from modeltranslation import settings as mt_settings
 from modeltranslation.utils import (build_localized_fieldname,
                                     get_translation_fields)
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.wagtailcore.utils import WAGTAIL_APPEND_SLASH
+from wagtail.core.models import Page, Site
+from wagtail.core.utils import WAGTAIL_APPEND_SLASH
 
 from . import edit_handlers
 from .search import search_fields as _search_fields

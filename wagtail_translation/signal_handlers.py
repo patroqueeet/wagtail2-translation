@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from django.utils.translation import get_language
 
 from modeltranslation.utils import build_localized_fieldname
-from wagtail.wagtailcore.models import PageRevision
+from wagtail.core.models import PageRevision
 
 
 from .page_patch import PREFIX

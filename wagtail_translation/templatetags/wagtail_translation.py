@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django import template
 from django.utils.translation import get_language_from_path, override
 from django.utils.translation.trans_real import language_code_prefix_re
-from wagtail.wagtailcore.models import PAGE_TEMPLATE_VAR, AbstractPage
+from wagtail.core.models import PAGE_TEMPLATE_VAR, AbstractPage
 
 register = template.Library()
 

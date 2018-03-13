@@ -1,5 +1,5 @@
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch import index
+from wagtail.core.models import Page
+from wagtail.search import index
 
 from .utils import obj_per_lang
 

@@ -5,12 +5,12 @@ from django.utils.translation import ugettext as _
 from modeltranslation import settings as mt_settings
 from modeltranslation.utils import build_localized_fieldname
 
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import (
+from wagtail.admin import messages
+from wagtail.admin.utils import (
     user_has_any_page_permission, user_passes_test)
-from wagtail.wagtailadmin.views.pages import get_valid_next_url_from_request
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page
+from wagtail.admin.views.pages import get_valid_next_url_from_request
+from wagtail.core import hooks
+from wagtail.core.models import Page
 
 from .forms import CopyForm
 

@@ -1,6 +1,6 @@
 # wagtail-translation
 
-**wagtail-translation** adds translation capabilities to [Wagtail CMS](https://github.com/wagtail/wagtail) 
+**wagtail-translation** adds translation capabilities to [Wagtail CMS](https://github.com/wagtail/wagtail)
 by using [django-modeltranslation](https://github.com/deschler/django-modeltranslation).
 The aim is to have a very clean implementation of single-tree Wagtail translations.
 This project was inspired by [wagtail-modeltranslation](https://github.com/infoportugal/wagtail-modeltranslation)
@@ -21,12 +21,12 @@ because it is unnecessarily messy and not very maintainable.
    TBD: additional actions when translation languages are changed after running wagtail-translation migration
 5. If you have custom managers on your `Page` submodels, make sure that such managers inherit from
    `wagtail_translation.manager.MultilingualPageManager`.
-   
+
 ### Dependencies and versions
 
 | Dependency              | Versions    |
 |-------------------------|-------------|
-| wagtail                 | >=1.8,<1.12 |
+| wagtail                 | >=2.0       |
 | django-modeltranslation | >=0.12      |
 | django                  | >=1.8,<2.0  |
 

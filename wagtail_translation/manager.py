@@ -1,5 +1,5 @@
 from modeltranslation.manager import MultilingualManager
-from wagtail.wagtailcore.models import PageManager
+from wagtail.core.models import PageManager
 
 
 class MultilingualPageManager(MultilingualManager, PageManager):
