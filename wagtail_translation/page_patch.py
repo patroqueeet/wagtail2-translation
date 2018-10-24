@@ -215,17 +215,34 @@ def get_url_parts(self, request=None):
         return
 
     # copy of original implementation:
-    for (site_id, root_path, root_url) in self._get_site_root_paths(request):
-        if self.url_path.startswith(root_path):
-            page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
+    possible_sites = [
+        (pk, path, url)
+        for pk, path, url in self._get_site_root_paths(request)
+        if self.url_path.startswith(path)
+    ]
 
-            # Remove the trailing slash from the URL reverse generates if
-            # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
-            # the root path
-            if not WAGTAIL_APPEND_SLASH and page_path != '/':
-                page_path = page_path.rstrip('/')
+    if not possible_sites:
+        return None
 
-            return (site_id, root_url, page_path)
+    site_id, root_path, root_url = possible_sites[0]
+
+    if hasattr(request, 'site'):
+        for site_id, root_path, root_url in possible_sites:
+            if site_id == request.site.pk:
+                break
+        else:
+            site_id, root_path, root_url = possible_sites[0]
+
+    page_path = reverse(
+        'wagtail_serve', args=(self.url_path[len(root_path):],))
+
+    # Remove the trailing slash from the URL reverse generates if
+    # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
+    # the root path
+    if not WAGTAIL_APPEND_SLASH and page_path != '/':
+        page_path = page_path.rstrip('/')
+
+    return (site_id, root_url, page_path)
 
 
 @transaction.atomic
