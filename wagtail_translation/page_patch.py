@@ -105,6 +105,7 @@ def full_clean(self, *args, **kwargs):
         setattr(self, "title", dummy_val)
         setattr(self, "slug", dummy_val)
 
+    kwargs.pop("clean", "")
     super(Page, self).full_clean(*args, **kwargs)
 
 
@@ -171,6 +172,7 @@ def save(self, *args, **kwargs):
                 self.draft_title = getattr(self, title_field)
                 break
 
+    kwargs.pop("clean", "")
     result = super(Page, self).save(*args, **kwargs)
 
     if update_descendant_url_paths:
@@ -271,6 +273,7 @@ def get_url_parts(self, request=None):
 @transaction.atomic
 def move(self, target, pos=None):
     old_self = Page.objects.get(id=self.id)
+    kwargs.pop("clean", "")
     super(Page, self).move(target, pos=pos)
 
     new_self = Page.objects.get(id=self.id)
