@@ -44,6 +44,7 @@ class WagtailTranslationAppConfig(AppConfig):
         for name in query_patch.__all__:
             setattr(PageQuerySet, name, getattr(query_patch, name))
         for name in views_patch.__all__:
-            setattr(getattr(pages, name), name, getattr(views_patch, name))
+            # FIXME make generic again
+            setattr(pages.copy, name, getattr(views_patch, name))
 
         import wagtail_translation.signal_handlers
