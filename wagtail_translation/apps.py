@@ -22,7 +22,7 @@ class WagtailTranslationAppConfig(AppConfig):
         # patch Site and Page models here
         from wagtail.core.models import AbstractPage, Page, Site
         from wagtail.core.query import PageQuerySet
-        from wagtail.admin.views import pages
+        from wagtail.admin.views.pages import copy
         from .manager import MultilingualPageManager
 
         # fix PageManager to inherit from MultilingualManager
@@ -45,6 +45,6 @@ class WagtailTranslationAppConfig(AppConfig):
             setattr(PageQuerySet, name, getattr(query_patch, name))
         for name in views_patch.__all__:
             # FIXME make generic again
-            setattr(pages.copy, name, getattr(views_patch, name))
+            setattr(copy, name, getattr(views_patch, name))
 
         import wagtail_translation.signal_handlers
